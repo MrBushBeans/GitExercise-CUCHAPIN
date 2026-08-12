@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basic Blogs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .blog-header {
+      background: #343a40;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .blog-post {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    footer {
+      background: #343a40;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+      margin-top: 2rem;
+    }
+    .post-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Basic Blogs</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarNav" aria-controls="navbarNav" 
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Posts</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header -->
+  <header class="blog-header mt-5">
+    <h1>Make A Simple Blog</h1>
+    <p class="lead">Title - Content - Image</p>
+  </header>
+
+  <!-- Create Post Form -->
+  <main class="container mt-4">
+    <div class="card mb-4">
+      <div class="card-body">
+        <h3>Create a New Post</h3>
+        <form id="postForm">
+          <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" id="title" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label for="content" class="form-label">Content</label>
+            <textarea id="content" class="form-control" rows="3" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="image" class="form-label">Upload Image (Optional)</label>
+            <input type="file" id="image" class="form-control" accept="image/*">
+          </div>
+          <button type="submit" class="btn btn-primary">Publish Post</button>
+        </form>
+      </div>
+    </div>
+
+<!-- Blog Posts Section -->
+<h2>Blog Posts</h2>
+<div id="posts">
+
+  <!-- Existing Post -->
+  <div class="blog-post">
+    <img src="https://howmanydudes.com/sprites/sp_dude_cave_0.webp" class="post-image" alt="Sample blog image">
+    <h3>My Post</h3>
+    <p class="text-muted">August 10, 2026 by Me</p>
+    <p>
+      This is Cave Dude "Unga Bunga"
+    First, Cave Dude Unga. Then... he Bunga.
+    </p>
+  </div>
+
+</div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Basic Blogs</p>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const postForm = document.getElementById("postForm");
+    const postsContainer = document.getElementById("posts");
+
+    postForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      const imageInput = document.getElementById("image");
+      const date = new Date().toLocaleString();
+
+      // Create post element
+      const post = document.createElement("div");
+      post.classList.add("blog-post");
+
+      // Add image if uploaded
+      if (imageInput.files.length > 0) {
+        const img = document.createElement("img");
+        img.src = URL.createObjectURL(imageInput.files[0]);
+        img.classList.add("post-image");
+        post.appendChild(img);
+      }
+
+      // Add title, date, content
+      post.innerHTML += `
+        <h3>${title}</h3>
+        <p class="text-muted">${date} by Admin</p>
+        <p>${content}</p>
+      `;
+
+      // Append post to container
+      postsContainer.prepend(post);
+
+      // Reset form
+      postForm.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,16 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Git Exercise</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Joe Allen Cuchapin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #4285F4;
+    --red: #EA4335;
+    --yellow: #FBBC05;
+    --green: #34A853;
+    --gray: #5F6368;
+    --border-gray: #DADCE0;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background: #FFFFFF;
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+
+  body {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 6vh 6vw;
+  }
+
+  h1 {
+    margin: 0;
+    font-weight: 700;
+    font-size: clamp(2rem, 9vw, 5.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  h1 span { display: inline-block; }
+
+  p.message {
+    margin: 1.4em 0 0;
+    color: var(--gray);
+    font-weight: 500;
+    font-size: clamp(1rem, 2.6vw, 1.4rem);
+  }
+
+  .bar {
+    display: flex;
+    margin-top: 1.6em;
+    border-radius: 4px;
+    overflow: hidden;
+    width: clamp(140px, 30vw, 220px);
+    height: 6px;
+  }
+  .bar span { flex: 1; }
+  .bar span:nth-child(1) { background: var(--blue); }
+  .bar span:nth-child(2) { background: var(--red); }
+  .bar span:nth-child(3) { background: var(--yellow); }
+  .bar span:nth-child(4) { background: var(--green); }
+
+  .dims {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--gray);
+    background: #FFFFFF;
+    border: 1.5px solid var(--border-gray);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+
+  @media (max-width: 420px) {
+    .dims { font-size: 0.7rem; padding: 5px 10px; bottom: 12px; right: 12px; }
+  }
+</style>
 </head>
 <body>
 
-    <h1>Hello, GitHub!</h1>
-    <p>This is my Git and GitHub Exercise.</p>
+  <h1 id="name"></h1>
+  <p class="message">Resize this Page! It's Responsive.</p>
+  <div class="bar"><span></span><span></span><span></span><span></span></div>
 
-    <script src="script.js"></script>
+  <div class="dims" id="dims">— × —</div>
+
+  <script>
+    // Color each letter in a rotating Google-style palette
+    const name = "Joe Allen Cuchapin";
+    const colors = ["#4285F4", "#EA4335", "#FBBC05", "#34A853"];
+    const el = document.getElementById('name');
+    let colorIndex = 0;
+    [...name].forEach((ch) => {
+      const span = document.createElement('span');
+      span.textContent = ch === " " ? "\u00A0" : ch;
+      if (ch !== " ") {
+        span.style.color = colors[colorIndex % colors.length];
+        colorIndex++;
+      }
+      el.appendChild(span);
+    });
+
+    // Live viewport size badge, updates as the window is resized
+    const dims = document.getElementById('dims');
+    function updateDims() {
+      dims.textContent = window.innerWidth + " × " + window.innerHeight;
+    }
+    updateDims();
+    window.addEventListener('resize', updateDims);
+  </script>
+
 </body>
 </html>
